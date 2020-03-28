@@ -1,6 +1,8 @@
 <?php
 
 	include_once('includes/verifyLogin.php');
+	include_once('includes/tablePecasReposicao.php');
+
 
 	
 	if (empty($_GET['Id'])||!isset($_GET['Id'])) {
@@ -19,7 +21,7 @@
 				<?php 
 					if (isset($_POST['salvar'])) {
 						include_once("includes/newManutencao.php");
-						
+					;
 						$obj = new Manutencao();
 						$resp = $obj->NewManutencao($Id,$_POST['descricao'],$_POST['tipoManutencaoId'],
 													$_POST['peca'],$_POST['qtdePeca'],$_POST['dtManutencao']);
@@ -69,7 +71,8 @@
 					<div class="form-group row">
 						<label class="col-2 col-form-label required">Tipo de Manutenção</label>
 						<div class="col-sm-10">
-							<select name="tipoManutencaoId">
+							<select  class = "col-4 form-control"  required name="tipoManutencaoId">
+							<option value="">Selecione um tipo de manuteção</option>
 								<option value="P">Preventiva</option>
 								<option value="C">Corretiva</option>
 							</select>
@@ -79,12 +82,26 @@
 					<div class="form-group row">
 						<label for="input2" class="col-2 col-form-label required">Peça utilizada na Manutenção</label>
 						<div class="col-sm-10">
-						    <input type="text" class="form-control customInputForm" name='peca' id="input2">
+						<select class= "col-4 form-control" required name="peca">
+						<option value="">Selecione uma peça</option>
+						<?php
+							$peca = new PecasReposicao();
+							$arrayPecas = $peca->getPecasReposicao();//busca as peças do banco de dados 
+							if(!empty($arrayPecas)){//verifica se retornou algo do banco
+								foreach($arrayPecas->pecas as $value)//para cada item que veio do banco cria uma option
+									{
+										?>
+										<option value=<?=$value['Id'] ?>><?=$value['Nome']?></option>
+										<?php   
+									}
+							}
+						?>   
+						</select>
 						</div>
 					</div>
 
 					<div class="form-group row">
-						<label for="input3" class="col-2 col-form-label required">Quantidade utilizada da peça</label>
+						<label required for="input3" class="col-2 col-form-label required">Quantidade utilizada da peça</label>
 						<div class="col-sm-10">
 						    <input type="number" class="form-control customInputForm" name='qtdePeca' id="input3">
 						</div>
@@ -93,7 +110,7 @@
 					<div class="form-group row">
 						<label for="input3" class="col-2 col-form-label required">Data da Manutenção</label>
 						<div class="col-sm-10">
-						    <input type="datetime-local" class="form-control customInputForm" name='dtManutencao' id="input4">
+						    <input required type="datetime-local" class="form-control customInputForm" name='dtManutencao' id="input4">
 						</div>
 					</div>
 

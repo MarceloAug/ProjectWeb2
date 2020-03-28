@@ -18,10 +18,10 @@
 
 		function getPecasReposicao() {
 			$st = $this->db->prepare("SELECT 
-										Id \"Id\", 
-										Nome \"Nome\", 
-										Descricao \"Descrição\",
-										QtdeEstoque \"Quantidade em Estoque\"
+										Id , 
+										Nome , 
+										Descricao,
+										QtdeEstoque
 									FROM PecasReposicao");
 			if ($st->execute()) {
 				while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
