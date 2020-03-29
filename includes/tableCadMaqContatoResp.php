@@ -14,13 +14,14 @@
 			$this->db = $this->db->dbConnect();
 		}
 
-		public function InsertCadMaqContatoResp($cadMaqId, $nomeResp) {
-
-			if(!empty($cadMaqId) && !empty($nomeResp)) {
+		public function InsertCadMaqContatoResp($cadMaqId,$idResp) {
+		
+			
+			if(!empty($cadMaqId) && !empty($idResp)) {
 				
 				try {
-					$select = $this->db->prepare("SELECT Id FROM ContatoResp WHERE Nome = :nomeResp ");
-					$select->bindParam(':nomeResp', $nomeResp);
+					$select = $this->db->prepare("SELECT Id FROM ContatoResp WHERE Id = :idResp ");
+					$select->bindParam(':idResp', $idResp);
 					$select->execute();
 
 					if ($select->rowCount()<>1) {
@@ -38,7 +39,7 @@
 											VALUES 
 												(:cadMaqId, :contatoRespId)");
 					$st->bindParam(':cadMaqId', $cadMaqId);
-					$st->bindParam(':contatoRespId', $select->fetchColumn());
+					$st->bindParam(':contatoRespId', $idResp);
 					
 					$st->execute();
 
@@ -55,7 +56,6 @@
 				return $this;
 			}
 		}
-		
 
 	}
 

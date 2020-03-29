@@ -233,7 +233,7 @@
 				&& !empty($patrim) && !empty($periodoManut) && !empty($avisoAntes) && !empty($emailAviso)) {
 				try {
 
-					$select = $this->db->prepare("SELECT Id FROM ContatoResp WHERE Nome = :ContatoNome ");
+					$select = $this->db->prepare("SELECT Id FROM ContatoResp WHERE Id = :ContatoNome ");
 					$select->bindParam(':ContatoNome', $ContatoNome);
 					$select->execute();
 

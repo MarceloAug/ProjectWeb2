@@ -1,6 +1,8 @@
 <?php
 
 	include_once('includes/verifyLogin.php');
+	include_once('includes/tableContatoResp.php');
+
 
 	
 	if (empty($_GET['Id'])||!isset($_GET['Id'])) {
@@ -21,7 +23,7 @@
 						include_once("includes/tableCadMaqContatoResp.php");
 						
 						$obj = new CadMaqContatoResp();
-						
+					
 						$resp = $obj->InsertCadMaqContatoResp($Id,$_POST['nome']);
 
 						if ($resp->HasError) {
@@ -63,7 +65,21 @@
 					<div class="form-group row">
 						<label for="input1" class="col-2 col-form-label required">Nome do Responsável</label>
 						<div class="col-sm-10">
-						    <input type="text" class="form-control customInputForm" name="nome" id="input1">
+							<select class= "col-4 form-control" required name="nome">
+							<option value="">Selecione um Responsável</option>
+							<?php
+								$responsavel = new ContatoResp();
+								$arrayResp = $responsavel->getContatoResp();
+								if(!empty($arrayResp)){
+									foreach($arrayResp->responsaveis as $value)
+										{
+											?>
+											<option value=<?=$value['Id'] ?>><?=$value['Nome']?></option>
+											<?php   
+										}
+								}
+							?>   
+							</select>
 						</div>
 					</div>
 

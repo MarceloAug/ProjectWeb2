@@ -1,6 +1,7 @@
 <?php
 
 	include_once('includes/verifyLogin.php');
+	include_once('includes/tableContatoResp.php');
 
 	if (empty($_GET['IsEdit']) || !isset($_GET['IsEdit'])) {
 		$IsEdit = (bool)"0";
@@ -205,22 +206,28 @@
 				    </div>
 				  </div>
 				  <?php if ($Id == 0) { 
-					  echo '<div class="form-group row">
-					    <label for="input2" class="col-2 col-form-label required">Nome do Responsável</label>
-					    <div class="col-sm-10">
-							<input type="text" '; 
-								if ($Id <> 0 && !$IsEdit) {echo 'readonly';} echo 
-								'class="form-control customInputForm" name=\'contatoNome\' id="input8" 
-								value='; 
-											if ($Id <> 0) {
-												echo '"'.$resp->MaqDados["Nome do Responsável"].'"'; 
-											} else {
-												echo '""'; 
-											}
-								echo 
-							'>
-					    </div>
-					  </div>';
+					?>
+				<div class="form-group row">
+						<label for="input1" class="col-2 col-form-label required">Nome do Responsável</label>
+						<div class="col-sm-10">
+							<select class= "col-4 form-control" required name="contatoNome">
+							<option value="">Selecione um Responsável</option>
+							<?php
+								$responsavel = new ContatoResp();
+								$arrayResp = $responsavel->getContatoResp();
+								if(!empty($arrayResp)){
+									foreach($arrayResp->responsaveis as $value)
+										{
+											?>
+											<option value=<?=$value['Id'] ?>><?=$value['Nome']?></option>
+											<?php   
+										}
+								}
+							?>   
+							</select>
+						</div>
+					</div>
+					<?php
 					  }
 				  ?>
 				  

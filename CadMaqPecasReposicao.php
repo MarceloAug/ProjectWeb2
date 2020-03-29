@@ -1,6 +1,7 @@
 <?php
 
 	include_once('includes/verifyLogin.php');
+	include_once('includes/tablePecasReposicao.php');
 
 	
 	if (empty($_GET['Id'])||!isset($_GET['Id'])) {
@@ -59,11 +60,25 @@
 
 				<form action=<?php echo '"CadMaqPecasReposicao.php?Id='.$_GET['Id'].'"';?> method="POST">
 
-					
-					<div class="form-group row">
-						<label for="input1" class="col-2 col-form-label required">Nome da Peça</label>
+			
+				<div class="form-group row">
+						<label for="input2" class="col-2 col-form-label required">Nome da peça</label>
 						<div class="col-sm-10">
-						    <input type="text" class="form-control customInputForm" name="nome" id="input1">
+						<select class= "col-4 form-control" required name="nome">
+						<option value="">Selecione uma peça</option>
+						<?php
+							$peca = new PecasReposicao();
+							$arrayPecas = $peca->getPecasReposicao();//busca as peças do banco de dados 
+							if(!empty($arrayPecas)){//verifica se retornou algo do banco
+								foreach($arrayPecas->pecas as $value)//para cada item que veio do banco cria uma option
+									{
+										?>
+										<option value0=<?=$value['Nome'] ?>><?=$value['Nome']?></option>
+										<?php   
+									}
+							}
+						?>   
+						</select>
 						</div>
 					</div>
 

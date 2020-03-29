@@ -33,7 +33,7 @@
 			<div class="form-group row">
 				<label class="col-2 col-form-label">Tipo de Log</label>
 				<div class="col-sm-10">
-					<select name="tipoMov">
+					<select  class="col-4 form-control" name="tipoMov">
 						<option value="" 
 							<?php if (!isset($_GET["tipoMov"])) {echo ' selected';} ?> 
 						>-</option>
