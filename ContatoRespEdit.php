@@ -89,7 +89,7 @@
 					<div class="form-group row">
 					    <label for="input1" class="col-2 col-form-label required">Nome</label>
 					    <div class="col-sm-10">
-						    <input type="text" 
+						    <input type="text" required
 						      	<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
 						      	class="form-control customInputForm" name='nome' id="input1" 
 						      	value=<?php 
@@ -106,7 +106,7 @@
 					<div class="form-group row">
 					    <label for="input1" class="col-2 col-form-label required">Email</label>
 					    <div class="col-sm-10">
-						    <input type="email" 
+						    <input type="email" required
 						      	<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
 						      	class="form-control customInputForm" name='email' id="input2" 
 						      	value=<?php 
@@ -123,7 +123,7 @@
 					<div class="form-group row">
 					    <label for="input1" class="col-2 col-form-label required">Telefone</label>
 					    <div class="col-sm-10">
-						    <input type="text" 
+						    <input type="text" required
 						      	<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
 						      	class="form-control customInputForm" name='telefone' id="input3" 
 						      	value=<?php 
@@ -140,7 +140,7 @@
 					<div class="form-group row">
 					    <label for="input1" class="col-2 col-form-label">Informações Adicionais</label>
 					    <div class="col-sm-10">
-						    <input type="text" 
+						    <input type="text" required
 						      	<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
 						      	class="form-control customInputForm" name='infoAdd' id="input4" 
 						      	value=<?php 

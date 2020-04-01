@@ -85,7 +85,7 @@
 				  <div class="form-group row">
 				    <label for="input1" class="col-2 col-form-label required">Nome</label>
 				    <div class="col-sm-10">
-					    <input type="text" 
+					    <input type="text" required
 					      	<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
 					      	class="form-control customInputForm" name='nome' id="input1" 
 					      	value=<?php 
@@ -102,7 +102,7 @@
 				  <div class="form-group row">
 				    <label for="input2" class="col-2 col-form-label required">Descrição</label>
 				    <div class="col-sm-10">
-						<input type="text" 
+						<input type="text" required
 							<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
 							class="form-control customInputForm" name='descricao' id="input2" 
 							value=<?php 
@@ -119,7 +119,7 @@
 				  <div class="form-group row">
 				    <label for="input2" class="col-2 col-form-label required">Estoque de Peças</label>
 				    <div class="col-sm-10">
-						<input type="number" 
+						<input type="number" required
 							<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
 							class="form-control customInputForm" name='estoque' id="input3" 
 							value=<?php 
