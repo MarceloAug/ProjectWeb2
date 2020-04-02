@@ -18,11 +18,11 @@
 
 		function getContatoResp() {
 			$st = $this->db->prepare("SELECT 
-										Id \"Id\", 
-										Nome \"Nome\", 
-										Email \"Email\",
-										Telefone \"Telefone\",
-										InfoAdicional \"Informações Adicionais\"
+										Id , 
+										Nome , 
+										Email ,
+										Telefone ,
+										InfoAdicional
 									FROM ContatoResp");
 			if ($st->execute()) {
 				while ($row = $st->fetch(PDO::FETCH_ASSOC)) {

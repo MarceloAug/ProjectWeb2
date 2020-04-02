@@ -48,7 +48,7 @@
 				  <div class="form-group row">
 				    <label for="input1" class="col-2 col-form-label">Nome da Máquina</label>
 				    <div class="col-sm-10">
-					    <input type="text" readonly class="form-control customInputForm" name='nome' id="input1" 
+					    <input type="text" required readonly class="form-control customInputForm" name='nome' id="input1" 
 					      	value=<?php echo "'".$respDados->MaqDados["NomeMaq"]."'"; ?>
 					    >
 				    </div>
@@ -56,7 +56,7 @@
 				  <div class="form-group row">
 				    <label for="input2" class="col-2 col-form-label">Descrição da Máquina</label>
 				    <div class="col-sm-10">
-						<input type="text" readonly class="form-control customInputForm" name='descricao' id="input2" 
+						<input type="text" required readonly class="form-control customInputForm" name='descricao' id="input2" 
 							value=<?php echo "'".$respDados->MaqDados["DescMaq"]."'"; ?>
 						>
 				    </div>
@@ -64,7 +64,7 @@
 				  <div class="form-group row">
 				    <label for="input1" class="col-2 col-form-label">Descrição do Log</label>
 				    <div class="col-sm-10">
-					    <input type="text" readonly class="form-control customInputForm" name='descmov' id="input3" 
+					    <input type="text" required readonly class="form-control customInputForm" name='descmov' id="input3" 
 					      	value=<?php echo "'".$respDados->MaqDados["DescMov"]."'"; ?>
 					    >
 				    </div>
@@ -72,7 +72,7 @@
 				  <div class="form-group row">
 				    <label for="input2" class="col-2 col-form-label">Data do Log</label>
 				    <div class="col-sm-10">
-						<input type="text" readonly class="form-control customInputForm" name='dtmov' id="input4" 
+						<input type="text" required readonly class="form-control customInputForm" name='dtmov' id="input4" 
 							value=<?php echo "'".$respDados->MaqDados["DtMov"]."'"; ?>
 						>
 				    </div>
@@ -80,7 +80,7 @@
 				  <div class="form-group row">
 				    <label for="input2" class="col-2 col-form-label">Descrição do Histórico</label>
 				    <div class="col-sm-10">
-						<input type="text" readonly class="form-control customInputForm" name='deschist' id="input4" 
+						<input type="text" required readonly class="form-control customInputForm" name='deschist' id="input4" 
 							value=<?php echo "'".$respDados->MaqDados["DescHist"]."'"; ?>
 						>
 				    </div>
@@ -89,7 +89,7 @@
 					  		echo '<div class="form-group row">
 								    <label for="input2" class="col-2 col-form-label">Data da Manutenção</label>
 								    <div class="col-sm-10">
-										<input type="text" readonly class="form-control customInputForm" name=\'dtManutencao\' id="input5" 
+										<input type="text" required readonly class="form-control customInputForm" name=\'dtManutencao\' id="input5" 
 											value=\''.$respDados->MaqDados["DtManutencao"].'\'
 										>
 								    </div>

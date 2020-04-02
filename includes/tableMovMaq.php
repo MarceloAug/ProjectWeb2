@@ -123,6 +123,64 @@
 			}
 		}
 
+
+		function filtraManutencaoPeriodo($datade,$dataate){
+			
+
+			$st = $this->db->prepare("SELECT CadMaqId,Descricao,HistMovId, DtMovto, DtManutencao
+									FROM MovMaq WHERE DtManutencao BETWEEN '{$datade}' and '{$dataate}' ");
+		
+			$st->execute();
+		if ($st->rowCount()==0) {
+			$this->HasError = false;
+			return $this;
+		}
+		
+		if ($st->rowCount()>0) {
+			while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
+				$this->maq[] = $row;
+			}
+			if (empty($this->maq)) {
+				$this->HasError = true;
+				$this->ErrorMsg = "Erro - Lista de Logs de Máquinas vazia.";
+				return $this;
+			} else {
+				$this->HasError = false;
+				return $this;
+			}
+		}
+		
+		
+	}
+
+
+	function filtraManutencao(){
+          
+		$st = $this->db->prepare("SELECT CadMaqId,Descricao,HistMovId, DtMovto, DtManutencao
+								FROM MovMaq");
+	
+		$st->execute();
+	if ($st->rowCount()==0) {
+		$this->HasError = false;
+		return $this;
+	}
+	
+	if ($st->rowCount()>0) {
+		while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
+			$this->maq[] = $row;
+		}
+		if (empty($this->maq)) {
+			$this->HasError = true;
+			$this->ErrorMsg = "Erro - Não foi possível encontrar lista de manutenção.";
+			return $this;
+		} else {
+			$this->HasError = false;
+			return $this;
+		}
+	}
+}
+
+
 	}
 
 ?>

@@ -18,7 +18,7 @@
 			if(!empty($cadMaqId) && !empty($descricao) && !empty($dtManutencao)) {
 
 				if (!empty($pecasReposicaoNome)) {
-					$select = $this->db->prepare("SELECT Id FROM PecasReposicao WHERE Nome = :pecasReposicaoNome ");
+					$select = $this->db->prepare("SELECT Id FROM PecasReposicao WHERE Id = :pecasReposicaoNome ");
 					$select->bindParam(':pecasReposicaoNome', $pecasReposicaoNome);
 					$select->execute();
 
@@ -31,8 +31,9 @@
 						}
 						return $this;
 					}
+					
 					$pecasReposicaoId = $select->fetchColumn();
-
+					
 					$select = $this->db->prepare("SELECT QtdeEstoque FROM PecasReposicao WHERE Id = :pecasReposicaoId ");
 					$select->bindParam(':pecasReposicaoId', $pecasReposicaoId);
 					$select->execute();

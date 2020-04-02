@@ -1,6 +1,7 @@
 <?php
 
 	include_once('includes/verifyLogin.php');
+	include_once('includes/tableContatoResp.php');
 
 	if (empty($_GET['IsEdit']) || !isset($_GET['IsEdit'])) {
 		$IsEdit = (bool)"0";
@@ -21,7 +22,9 @@
 	require "header.php";
 ?>
 	<main id="MainDiv" class="offset-2">
-				<?php 
+				<?php
+				
+				
 					if (isset($_POST['salvar'])) {
 						include_once("includes/tableCadMaq.php");
 						if ($Id == 0) {
@@ -89,7 +92,7 @@
 				  <div class="form-group row">
 				    <label for="input1" class="col-2 col-form-label required">Nome</label>
 				    <div class="col-sm-10">
-					    <input type="text" 
+					    <input type="text" required
 					      	<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
 					      	class="form-control customInputForm" name='nome' id="input1" 
 					      	value=<?php 
@@ -106,7 +109,7 @@
 				  <div class="form-group row">
 				    <label for="input2" class="col-2 col-form-label required">Descrição</label>
 				    <div class="col-sm-10">
-						<input type="text" 
+						<input type="text" required
 							<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
 							class="form-control customInputForm" name='descricao' id="input2" 
 							value=<?php 
@@ -123,7 +126,7 @@
 				  <div class="form-group row">
 				    <label for="input2" class="col-2 col-form-label required">Características</label>
 				    <div class="col-sm-10">
-						<input type="text" 
+						<input type="text" required
 							<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
 							class="form-control customInputForm" name='caracteristicas' id="input3" 
 							value=<?php 
@@ -140,7 +143,7 @@
 				  <div class="form-group row">
 				    <label for="input2" class="col-2 col-form-label required">Patrimônio</label>
 				    <div class="col-sm-10">
-						<input type="text"
+						<input type="text" required
 							<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
 							class="form-control customInputForm" name='patrimonio' id="input4" 
 							value=<?php 
@@ -157,7 +160,7 @@
 				  <div class="form-group row">
 				    <label for="input2" class="col-2 col-form-label required">Período de Manutenção (em dias)</label>
 				    <div class="col-sm-10">
-						<input type="number" 
+						<input type="number" required
 							<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
 							class="form-control customInputForm" name='periodoManutencao' id="input5" 
 							value=<?php 
@@ -174,7 +177,7 @@
 				  <div class="form-group row">
 				    <label for="input2" class="col-2 col-form-label required">Tempo, em dias, antes de mandar email de aviso</label>
 				    <div class="col-sm-10">
-						<input type="number" 
+						<input type="number" required
 							<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
 							class="form-control customInputForm" name='avisoAntes' id="input6" 
 							value=<?php 
@@ -191,7 +194,7 @@
 				  <div class="form-group row">
 				    <label for="input2" class="col-2 col-form-label required">Endereço de Email para enviar o aviso</label>
 				    <div class="col-sm-10">
-						<input type="email" 
+						<input type="email" required
 							<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
 							class="form-control customInputForm" name='enderecoEmailAviso' id="input7" 
 							value=<?php 
@@ -205,22 +208,28 @@
 				    </div>
 				  </div>
 				  <?php if ($Id == 0) { 
-					  echo '<div class="form-group row">
-					    <label for="input2" class="col-2 col-form-label required">Nome do Responsável</label>
-					    <div class="col-sm-10">
-							<input type="text" '; 
-								if ($Id <> 0 && !$IsEdit) {echo 'readonly';} echo 
-								'class="form-control customInputForm" name=\'contatoNome\' id="input8" 
-								value='; 
-											if ($Id <> 0) {
-												echo '"'.$resp->MaqDados["Nome do Responsável"].'"'; 
-											} else {
-												echo '""'; 
-											}
-								echo 
-							'>
-					    </div>
-					  </div>';
+					?>
+				<div class="form-group row">
+						<label for="input1" class="col-2 col-form-label required">Nome do Responsável</label>
+						<div class="col-sm-10">
+							<select class= "col-4 form-control" required name="contatoNome">
+							<option value="">Selecione um Responsável</option>
+							<?php
+								$responsavel = new ContatoResp();
+								$arrayResp = $responsavel->getContatoResp();
+								if(!empty($arrayResp)){
+									foreach($arrayResp->responsaveis as $value)
+										{
+											?>
+											<option value=<?=$value['Id'] ?>><?=$value['Nome']?></option>
+											<?php   
+										}
+								}
+							?>   
+							</select>
+						</div>
+					</div>
+					<?php
 					  }
 				  ?>
 				  
