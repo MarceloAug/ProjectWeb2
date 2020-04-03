@@ -207,6 +207,38 @@
 			}
 		}
 
+
+		 public function DeletarUsuario($Id) {
+			
+			if(!empty($Id)) {
+
+				try {
+					
+						$st = $this->db->prepare("delete from Usuario WHERE Id = '$Id'");						  
+						// $st->bindParam(':Id', $Id);
+						$st->execute();
+						
+	
+						$this->HasError = false;
+						return $this;
+					
+					   
+				} catch (Exception $e) {
+				
+					$this->HasError = true;
+					$this->ErrorMsg = "Não foi possível Excluir o Usuário.";
+					return $this;
+				}
+	
+			} else {
+				$this->HasError = true;
+				$this->ErrorMsg = "Há dados vinculados ao Usuário!";
+				return $this;
+			}
+		}
+
+		
+
 	}
 
 

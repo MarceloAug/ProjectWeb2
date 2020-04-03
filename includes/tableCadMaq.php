@@ -379,6 +379,65 @@
 			}
 		}
 
+		public function DeletarMaquina($Id) {
+			
+			if(!empty($Id)) {
+	
+				try {
+										
+						//delete das dependencias
+						$st = $this->db->prepare("delete from MovCadMaq 
+												  ");
+						$st->bindParam(':Id', $Id);
+						$st->execute();
+	
+						$st = $this->db->prepare("delete from CadMaqPecasReposicao
+													WHERE CadMaqId = :Id");
+						$st->bindParam(':Id', $Id);
+						$st->execute();
+	
+						$st = $this->db->prepare("delete from MovMaq
+													WHERE CadMaqId = :Id");
+						$st->bindParam(':Id', $Id);
+						$st->execute();
+						
+						
+	
+						$st = $this->db->prepare("delete from CadMaqContatoResp 
+												  WHERE CadMaqId = :Id");
+						$st->bindParam(':Id', $Id);
+						$st->execute();
+	
+						
+	
+						
+					
+						//Finalmente delete do registro da tabela cadmaq da lista de maquinas
+	
+						$st = $this->db->prepare("delete from CadMaq
+												  WHERE Id = :Id");
+						$st->bindParam(':Id', $Id);
+						$st->execute();
+						
+	
+						$this->HasError = false;
+						return $this;
+					
+					   
+				} catch (Exception $e) {
+				
+					$this->HasError = true;
+					$this->ErrorMsg = "Não foi possível Excluir o cadastro da Peça.";
+					return $this;
+				}
+	
+			} else {
+				$this->HasError = true;
+				$this->ErrorMsg = "Há dados vinculados a esta peça!";
+				return $this;
+			}
+		}
+
 	}
 
 ?>

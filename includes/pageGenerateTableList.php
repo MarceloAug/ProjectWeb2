@@ -85,6 +85,14 @@ function generateTableList($linha, $cabecalho, $url) {
 										<span class="icon oi oi-pencil" aria-hidden="true"></span>
 										</a>';
 									}
+
+									if (HasPermissao($_SESSION["UserId"],"EXCLUIR")) {
+										echo '
+									<a title="Apagar" style="text-decoration:none; color:#343a40;" href="deletar.php?Id='.$row['Id'].'&url='.$url.'">
+										<span class="icon oi oi-circle-x" aria-hidden="true"></span>
+										</a>';
+									}
+									
 									if ($url == 'MaquinaEdit.php') {
 										if (HasPermissao($_SESSION["UserId"],"EDITAR")) {
 										echo '<a title="Adicionar Arquivo" style="text-decoration:none; color:#343a40;" href="ArquivoMaquina.php?Id='.$row['Id'].'">

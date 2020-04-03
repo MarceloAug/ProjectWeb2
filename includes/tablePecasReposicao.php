@@ -120,6 +120,37 @@
 			}
 		}
 
+
+		 public function DeletarPeca($Id) {
+			
+			if(!empty($Id)) {
+
+				try {
+					
+						$st = $this->db->prepare("delete from PecasReposicao 
+												  WHERE Id = :Id");
+						$st->bindParam(':Id', $Id);
+						$st->execute();
+						
+	
+						$this->HasError = false;
+						return $this;
+					
+					   
+				} catch (Exception $e) {
+				
+					$this->HasError = true;
+					$this->ErrorMsg = "Não foi possível Excluir o cadastro da Peça.";
+					return $this;
+				}
+	
+			} else {
+				$this->HasError = true;
+				$this->ErrorMsg = "Há dados vinculados a esta peça!";
+				return $this;
+			}
+		}
+
 	}
 
 ?>
