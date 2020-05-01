@@ -124,11 +124,29 @@
 		}
 
 
-		function filtraManutencaoPeriodo($datade,$dataate){
+		function filtraManutencaoPeriodo($datade,$dataate,$tipoMan,$responsavel){
 			
+			$sql = "SELECT MovMaq.CadMaqId,MovMaq.Descricao,MovMaq.HistMovId, MovMaq.DtMovto, MovMaq.DtManutencao
+			FROM MovMaq
+			INNER JOIN CadMaqContatoResp ON MovMaq.CadMaqId = CadMaqContatoResp.CadMaqId
+			 WHERE CAST(MovMaq.DtManutencao AS DATE) BETWEEN '{$datade}' and '{$dataate}'";
 
-			$st = $this->db->prepare("SELECT CadMaqId,Descricao,HistMovId, DtMovto, DtManutencao
-									FROM MovMaq WHERE DtManutencao BETWEEN '{$datade}' and '{$dataate}' ");
+			if(!empty($tipoMan)){
+
+				$sql .= "AND MovMaq.TipoManutencaoId = '{$tipoMan}'";
+			}
+
+
+			if(!empty($responsavel)){
+
+				$sql .= "AND CadMaqContatoResp.ContatoRespId = '{$responsavel}'"; 
+			}
+
+
+
+	
+			 
+			$st = $this->db->prepare($sql);
 		
 			$st->execute();
 		if ($st->rowCount()==0) {

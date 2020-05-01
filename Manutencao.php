@@ -91,7 +91,7 @@
 								foreach($arrayPecas->pecas as $value)//para cada item que veio do banco cria uma option
 									{
 										?>
-										<option value=<?=$value['Id'] ?>><?=$value['Nome']?></option>
+										<option value=<?=$value['Nome'] ?>><?=$value['Nome']?></option>
 										<?php   
 									}
 							}

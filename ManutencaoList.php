@@ -1,6 +1,7 @@
 <?php
         include_once('includes/connection.php');
         include_once('includes/tableMovMaq.php');
+        include_once('includes/tableContatoResp.php');
 
 
 
@@ -13,7 +14,7 @@
     }else{
 
         $manutencao = new MovMaq;
-        $manList = $manutencao->filtraManutencaoPeriodo($_POST["datade"],$_POST["dataate"]);   
+        $manList = $manutencao->filtraManutencaoPeriodo($_POST["datade"],$_POST["dataate"],$_POST['tipoManutencaoId'],$_POST['nome']);   
     }
 
     ?>
@@ -22,7 +23,7 @@
     ?>
         <main id="MainDiv" class="offset-2">
 
-            <div style="width: 85%; margin-left: auto; margin-right: auto;">
+            <div class = "container">
 
 
                 <form action=<?php echo 'ManutencaoList.php'?> method="POST">
@@ -43,6 +44,39 @@
                         value="" ?>
                     </div>
                 </div>
+
+                <div class="form-group row">
+						<label class="col-2 col-form-label required">Tipo de Manutenção</label>
+						<div class="col-sm-10">
+							<select  class = "col-4 form-control"  name="tipoManutencaoId">
+							<option value="">Selecione um tipo de manuteção</option>
+								<option value="P">Preventiva</option>
+								<option value="C">Corretiva</option>
+							</select>
+						</div>
+					</div>
+
+                    <div class="form-group row">
+						<label for="input1" class="col-2 col-form-label required">Nome do Responsável</label>
+						<div class="col-sm-10">
+							<select class= "col-4 form-control"  name="nome">
+							<option value="">Selecione um Responsável</option>
+							<?php
+								$responsavel = new ContatoResp();
+								$arrayResp = $responsavel->getContatoResp();
+								if(!empty($arrayResp)){
+									foreach($arrayResp->responsaveis as $value)
+										{
+											?>
+											<option value=<?=$value['Id'] ?>><?=$value['Nome']?></option>
+											<?php   
+										}
+								}
+							?>   
+							</select>
+						</div>
+					</div>
+
 
                 <button type="submit" value="salvar" class="btn btn-secondary" style="margin-bottom: 10px;">Pesquisar</button>
                 </form>
