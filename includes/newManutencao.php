@@ -53,13 +53,14 @@
 					$select->bindParam(':qtdePecasUtilizadas', $qtdePecasUtilizadas);
 					$select->execute();
 				}
+				
+				$date = date_create($dtManutencao);
+				$dtManutencao = date_format($date, 'Y-m-d H:i:s');
+				
 
 				$st = $this->db->prepare("INSERT INTO MovMaq (CadMaqId,HistMovId,Descricao,DtMovto,TipoManutencaoId,DtManutencao) 
-										VALUES (:cadMaqId,'MANUTENCAO',:descricao,CURRENT_TIMESTAMP(),:tipoManutencaoId,:dtManutencao)");
-				$st->bindParam(':cadMaqId', $cadMaqId);
-				$st->bindParam(':descricao', $descricao);
-				$st->bindParam(':tipoManutencaoId', $tipoManutencaoId);
-				$st->bindParam(':dtManutencao', $dtManutencao);
+											VALUES ({$cadMaqId},'MANUTENCAO','{$descricao}',CURRENT_TIMESTAMP(),'{$tipoManutencaoId}','{$dtManutencao}')");
+			
 				$st->execute();
 
 				if (!empty($pecasReposicaoId) && !empty($qtdePecasUtilizadas)) {

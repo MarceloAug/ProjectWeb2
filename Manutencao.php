@@ -91,7 +91,7 @@
 								foreach($arrayPecas->pecas as $value)//para cada item que veio do banco cria uma option
 									{
 										?>
-										<option value=<?=$value['Nome'] ?>><?=$value['Nome']?></option>
+										<option value=<?=$value['Id'] ?>><?=$value['Nome']?></option>
 										<?php   
 									}
 							}
@@ -110,7 +110,7 @@
 					<div class="form-group row">
 						<label for="input3" class="col-2 col-form-label required">Data da Manutenção</label>
 						<div class="col-sm-10">
-						    <input required type="datetime-local" class="form-control customInputForm" name='dtManutencao' id="input4">
+						    <input required type="date" class="form-control customInputForm" name='dtManutencao' id="input4">
 						</div>
 					</div>
 

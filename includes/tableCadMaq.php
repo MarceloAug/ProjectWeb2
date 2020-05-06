@@ -25,8 +25,7 @@
 										Nome \"Nome\", 
 										Descricao \"Descrição\",
 										Caracteristicas \"Características\",
-										Patrimonio \"Patrimônio\",
-										EnderecoEmailAviso \"Endereço de Email para enviar o aviso\"
+										Patrimonio \"Patrimônio\"
 									FROM CadMaq");
 			if ($st->execute()) {
 				while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
@@ -74,8 +73,7 @@
 										Nome \"Nome\", 
 										Descricao \"Descrição\",
 										Caracteristicas \"Características\",
-										Patrimonio \"Patrimônio\",
-										EnderecoEmailAviso \"Endereço de Email para enviar o aviso\"
+										Patrimonio \"Patrimônio\"
 									FROM CadMaq
 									WHERE datediff(CURRENT_DATE(),(SELECT MAX(MovMaq.DtManutencao) FROM MovMaq WHERE MovMaq.CadMaqId = CadMaq.Id)) > (CadMaq.PeriodoManutencaoDays - CadMaq.AvisoAntesDays)
 									AND datediff(CURRENT_DATE(),(SELECT MAX(MovMaq.DtManutencao) FROM MovMaq WHERE MovMaq.CadMaqId = CadMaq.Id)) < (CadMaq.PeriodoManutencaoDays)");
@@ -100,8 +98,7 @@
 										Nome \"Nome\", 
 										Descricao \"Descrição\",
 										Caracteristicas \"Características\",
-										Patrimonio \"Patrimônio\",
-										EnderecoEmailAviso \"Endereço de Email para enviar o aviso\"
+										Patrimonio \"Patrimônio\"
 									FROM CadMaq
 									WHERE datediff(CURRENT_DATE(),(SELECT MAX(MovMaq.DtManutencao) FROM MovMaq WHERE MovMaq.CadMaqId = CadMaq.Id)) > (CadMaq.PeriodoManutencaoDays)");
 			if ($st->execute()) {
@@ -204,11 +201,10 @@
 											Caracteristicas \"Características\",
 											Patrimonio \"Patrimônio\",
 											PeriodoManutencaoDays \"Período de Manutenção (em dias)\",
-											AvisoAntesDays \"Tempo, em dias, antes de mandar email de aviso\",
-											EnderecoEmailAviso \"Endereço de Email para enviar o aviso\"
+											AvisoAntesDays \"Tempo, em dias, antes de mandar email de aviso\"
 										FROM CadMaq 
-										WHERE Id = ?");
-				$st->bindParam(1, $Id);
+										WHERE Id = '{$Id}'");
+				//$st->bindParam(1, $Id);
 				$st->execute();
 
 				if ($st->rowCount()==1) {
@@ -227,10 +223,11 @@
 			}
 		}
 
-		public function InsertCadMaq($nome, $descricao, $carac, $patrim, $periodoManut, $avisoAntes, $emailAviso,
+		public function InsertCadMaq($nome, $descricao, $carac, $patrim, $periodoManut, $avisoAntes,
 									$ContatoNome) {
-			if(!empty($nome) && !empty($descricao) && !empty($carac) 
-				&& !empty($patrim) && !empty($periodoManut) && !empty($avisoAntes) && !empty($emailAviso)) {
+
+									
+			if(!empty($nome) && !empty($descricao) && !empty($carac) && !empty($patrim) && !empty($periodoManut) && !empty($avisoAntes)) {
 				try {
 
 					$select = $this->db->prepare("SELECT Id FROM ContatoResp WHERE Id = :ContatoNome ");
@@ -251,18 +248,12 @@
 
 					$st = $this->db->prepare("INSERT INTO CadMaq 
 												(Nome, Descricao, Caracteristicas, Patrimonio, 
-												PeriodoManutencaoDays, AvisoAntesDays, EnderecoEmailAviso) 
+												PeriodoManutencaoDays, AvisoAntesDays) 
 											VALUES 
-												(:maqnome, :maqdesc, :carac, :patrim, 
-												:periodoManut, :avisoAntes, :emailAviso)");
-					
-					$st->bindParam(':maqnome', $nome);
-					$st->bindParam(':maqdesc', $descricao);
-					$st->bindParam(':carac', $carac);
-					$st->bindParam(':patrim', $patrim);
-					$st->bindParam(':periodoManut', $periodoManut);
-					$st->bindParam(':avisoAntes', $avisoAntes);
-					$st->bindParam(':emailAviso', $emailAviso);
+												('{$nome}', '{$descricao}','{$carac}', '{$patrim}', 
+												'{$periodoManut}', '{$avisoAntes}')");
+
+				
 					$st->execute();
 
 					$IdMaquina = $this->db->lastInsertId();
@@ -287,7 +278,6 @@
 					$st->bindParam(':patrim', $patrim);
 					$st->bindParam(':periodoManut', $periodoManut);
 					$st->bindParam(':avisoAntes', $avisoAntes);
-					$st->bindParam(':emailAviso', $emailAviso);
 					$st->execute();
 
 
@@ -295,10 +285,7 @@
 					$st = $this->db->prepare("INSERT INTO CadMaqContatoResp 
 												(CadMaqId, ContatoRespId) 
 											VALUES 
-												(:IdMaquina, :IdContato)");
-
-					$st->bindParam(':IdContato', $ContatoRespId);
-					$st->bindParam(':IdMaquina', $IdMaquina);
+												({$IdMaquina}, {$ContatoRespId})");
 					$st->execute();
 
 					$this->HasError = false;
@@ -317,7 +304,7 @@
 
 		public function UpdateCadMaq($Id, $nome, $descricao, $carac, $patrim, $periodoManut, $avisoAntes, $emailAviso) {
 			if(!empty($Id) && !empty($nome) && !empty($descricao) && !empty($carac) 
-				&& !empty($patrim) && !empty($periodoManut) && !empty($avisoAntes) && !empty($emailAviso)) {
+				&& !empty($patrim) && !empty($periodoManut) && !empty($avisoAntes)) {
 				try {
 					$st = $this->db->prepare("UPDATE CadMaq 
 											SET Nome = :maqnome, 
@@ -326,7 +313,6 @@
 												Patrimonio = :patrim,
 												PeriodoManutencaoDays = :periodoManut,
 												AvisoAntesDays = :avisoAntes,
-												EnderecoEmailAviso = :emailAviso
 											WHERE Id = :Id");
 					$st->bindParam(':Id', $Id);
 					$st->bindParam(':maqnome', $nome);
@@ -335,7 +321,6 @@
 					$st->bindParam(':patrim', $patrim);
 					$st->bindParam(':periodoManut', $periodoManut);
 					$st->bindParam(':avisoAntes', $avisoAntes);
-					$st->bindParam(':emailAviso', $emailAviso);
 					$st->execute();
 
 

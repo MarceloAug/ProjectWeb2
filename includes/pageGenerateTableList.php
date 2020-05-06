@@ -105,7 +105,7 @@ function generateTableList($linha, $cabecalho, $url) {
 										</a>';
 										}
 										if (HasPermissao($_SESSION["UserId"],"EDITAR")) {
-										echo '<a title="Realizar Manutenção" style="text-decoration:none; color:#343a40;" href="Manutencao.php?Id='.$row['Id'].'">
+										echo '<a title="Manutenção Realizada" style="text-decoration:none; color:#343a40;" href="Manutencao.php?Id='.$row['Id'].'">
 										<span class="icon oi oi-wrench" aria-hidden="true"></span>
 										</a>';
 										}

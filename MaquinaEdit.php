@@ -31,8 +31,7 @@
 							//Insert
 							$obj = new CadMaq();
 							$resp = $obj->InsertCadMaq($_POST['nome'],$_POST['descricao'],$_POST['caracteristicas'],
-														$_POST['patrimonio'],$_POST['periodoManutencao'],$_POST['avisoAntes'],
-														$_POST['enderecoEmailAviso'],$_POST['contatoNome']);
+														$_POST['patrimonio'],$_POST['periodoManutencao'],$_POST['avisoAntes'],$_POST['contatoNome'],'');
 
 							if ($resp->HasError) {
 								$_SESSION["MensagemFeedBack"] = $resp->ErrorMsg; 
@@ -45,7 +44,7 @@
 							$obj = new CadMaq();
 							$resp = $obj->UpdateCadMaq($Id,$_POST['nome'],$_POST['descricao'],$_POST['caracteristicas'],
 														$_POST['patrimonio'],$_POST['periodoManutencao'],$_POST['avisoAntes'],
-														$_POST['enderecoEmailAviso']);
+														'');
 							if ($resp->HasError) {
 								$_SESSION["MensagemFeedBack"] = $resp->ErrorMsg; 
 							} else {
@@ -191,22 +190,8 @@
 				    </div>
 				  </div>
 
-				  <div class="form-group row">
-				    <label for="input2" class="col-2 col-form-label required">Endereço de Email para enviar o aviso</label>
-				    <div class="col-sm-10">
-						<input type="email" required
-							<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
-							class="form-control customInputForm" name='enderecoEmailAviso' id="input7" 
-							value=<?php 
-										if ($Id <> 0) {
-											echo '"'.$resp->MaqDados["Endereço de Email para enviar o aviso"].'"'; 
-										} else {
-											echo '""'; 
-										}
-									?>
-						>
-				    </div>
-				  </div>
+			
+				
 				  <?php if ($Id == 0) { 
 					?>
 				<div class="form-group row">

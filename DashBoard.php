@@ -47,15 +47,23 @@
 				//verde
 				$db = new Connection();
 				$db = $db->dbConnect();
-				$st = $db->prepare(
-					"
+				//$st = $db->prepare(
+				//	"
+				///	SELECT 
+					//	COUNT(CadMaq.Id) \"Cont\"
+					//FROM
+					///	CadMaq
+					//WHERE
+					//	datediff(CURRENT_DATE(),(SELECT MAX(MovMaq.DtManutencao) FROM MovMaq WHERE MovMaq.CadMaqId = CadMaq.Id)) < (CadMaq.PeriodoManutencaoDays - CadMaq.AvisoAntesDays)
+					//"
+				//);
+
+					$st = $db->prepare(
+				"
 					SELECT 
 						COUNT(CadMaq.Id) \"Cont\"
 					FROM
-						CadMaq
-					WHERE
-						datediff(CURRENT_DATE(),(SELECT MAX(MovMaq.DtManutencao) FROM MovMaq WHERE MovMaq.CadMaqId = CadMaq.Id)) < (CadMaq.PeriodoManutencaoDays - CadMaq.AvisoAntesDays)
-					"
+						CadMaq"
 				);
 				$st->execute();
 					echo $st->fetch()["0"];
@@ -158,7 +166,7 @@
 							generateTableList($resp, $cabecalho, $url);
 						}
 						if ($_GET['view'] == "Em Dia") {
-							$resp = $object->getCadMaqEmDia()->maq;
+							$resp = $object->getCadMaq()->maq;
 							generateTableList($resp, $cabecalho, $url);
 						}
 
