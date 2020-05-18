@@ -141,11 +141,7 @@
 
 				$sql .= "AND CadMaqContatoResp.ContatoRespId = '{$responsavel}'"; 
 			}
-
-
-
-	
-			 
+		 
 			$st = $this->db->prepare($sql);
 		
 			$st->execute();

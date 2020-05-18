@@ -1,9 +1,9 @@
 <?php
 
 ignore_user_abort(true);
-set_time_limit(0); // disable the time limit for this script
+set_time_limit(0);
 
-$path = $_SERVER['DOCUMENT_ROOT']."/pages/includes/arquivos/"; // change the path to fit your websites document structure
+$path = $_SERVER['DOCUMENT_ROOT']."/ProjectWeb2/arquivos/"; //diretorio deve existir dentro da pasta principal do projeto(pasta arquivos)
 
 $dl_file = preg_replace("([^\w\s\d\-_~,;:\[\]\(\).]|[\.]{2,})", '', $_GET['download_file']); // simple file name validation
 $dl_file = filter_var($dl_file, FILTER_SANITIZE_URL); // Remove (more) invalid characters
@@ -16,7 +16,7 @@ if ($fd = fopen ($fullPath, "r")) {
     switch ($ext) {
         case "pdf":
         header("Content-type: application/pdf");
-        //antes: $path_parts["basename"]
+        //antes: $path_parts["basename"]//
         header("Content-Disposition: attachment; filename=\"".$_GET['nome']."\""); // use 'attachment' to force a file download
         break;
         // add more headers for other content types here

@@ -62,13 +62,29 @@ function generateTableList($linha, $cabecalho, $url) {
 
 								if ($url == "Arquivos") {
 									if (HasPermissao($_SESSION["UserId"],"CONSULTAR")) {
+										echo'</td>
+										<td>
+										<a title="Visualisar Arquivo" style="text-decoration:none; color:#343a40;" href="includes/visualisararquivo.php?download_file='.urlencode($row['Id']).$row['Extensão'].'&nome='.$row['Nome Original'].'">
+											<span class="icon oi oi-zoom-in" aria-hidden="true"></span>
+											
+											</a>';
+										}
+									if (HasPermissao($_SESSION["UserId"],"CONSULTAR")) {
 									echo'</td>
 									<td>
 									<a title="Baixar Arquivo" style="text-decoration:none; color:#343a40;" href="includes/downloadArquivo.php?download_file='.urlencode($row['Id']).$row['Extensão'].'&nome='.$row['Nome Original'].'">
-										<span class="icon oi oi-file" aria-hidden="true"></span>
+										<span class="icon oi oi-arrow-circle-bottom" aria-hidden="true"></span>
 										</a>';
 									}
+									if (HasPermissao($_SESSION["UserId"],"EXCLUIR")) {
+										echo '
+									<a title="Apagar arquivo" style="text-decoration:none; color:#343a40;" href="deletar.php?Id='.$row['Id'].'&url='.$url.'">
+										<span class="icon oi oi-circle-x" aria-hidden="true"></span>
+										</a>';
+								
+									}
 								}
+
 
 								if ($url != "Responsaveis" && $url != "Arquivos" && $url != "Pecas") {
 									

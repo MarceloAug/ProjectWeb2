@@ -42,7 +42,7 @@
 							    	
 								    $path=$arqId.$extension;
 								    
-								    $pathto="includes/arquivos/".$path;
+								    $pathto="arquivos/".$path;
 								    move_uploaded_file( $_FILES['file']['tmp_name'],$pathto) or die( "Could not copy file!");
 								}
 								else {

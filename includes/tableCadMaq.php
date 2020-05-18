@@ -169,15 +169,17 @@
 
 		public function getPecasByCadMaqId($CadMaqId) {
 			$st = $this->db->prepare("SELECT 
-										CadMaqPecasReposicao.Id \"Id\", 
-										PecasReposicao.Nome \"Nome\",
-										PecasReposicao.Descricao \"Descrição\",
-										CadMaqPecasReposicao.QtdeMinima \"Quantidade Mínima\", 
-										PecasReposicao.QtdeEstoque \"Quantidade em Estoque\"
+										CadMaqPecasReposicao.Id, 
+										PecasReposicao.Nome ,
+										PecasReposicao.Descricao ,
+										CadMaqPecasReposicao.QtdeMinima , 
+										PecasReposicao.QtdeEstoque ,
+										PecasReposicao.CodPecaERP
 									FROM CadMaqPecasReposicao
 									INNER JOIN PecasReposicao ON PecasReposicao.Id = CadMaqPecasReposicao.PecasReposicaoId
-									WHERE CadMaqPecasReposicao.CadMaqId = :CadMaqId");
-			$st->bindParam(':CadMaqId', $CadMaqId);
+						WHERE CadMaqPecasReposicao.CadMaqId = '{$CadMaqId}'");
+
+		
 			if ($st->execute()) {
 				while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
 					$this->pecas[] = $row;
@@ -223,7 +225,7 @@
 			}
 		}
 
-		public function InsertCadMaq($nome, $descricao, $carac, $patrim, $periodoManut, $avisoAntes,
+		public function InsertCadMaq($nome, $descricao, $carac, $patrim, $periodoManut, $avisoAntes, $emailAviso,
 									$ContatoNome) {
 
 									
@@ -312,7 +314,7 @@
 												Caracteristicas = :carac,
 												Patrimonio = :patrim,
 												PeriodoManutencaoDays = :periodoManut,
-												AvisoAntesDays = :avisoAntes,
+												AvisoAntesDays = :avisoAntes
 											WHERE Id = :Id");
 					$st->bindParam(':Id', $Id);
 					$st->bindParam(':maqnome', $nome);

@@ -21,7 +21,8 @@
 										Id , 
 										Nome , 
 										Descricao,
-										QtdeEstoque
+										QtdeEstoque,
+										CodPecaERP
 									FROM PecasReposicao");
 			if ($st->execute()) {
 				while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
@@ -43,7 +44,8 @@
 				$st = $this->db->prepare("SELECT 
 											Nome \"Nome\", 
 											Descricao \"Descrição\",
-											QtdeEstoque \"Quantidade em Estoque\"
+											QtdeEstoque \"Quantidade em Estoque\",
+											CodPecaERP \"Código da Peça\"
 										FROM PecasReposicao 
 										WHERE Id = ?");
 				$st->bindParam(1, $Id);
@@ -65,16 +67,14 @@
 			}
 		}
 
-		public function InsertPecasReposicao($nome, $descricao, $qtdeEstoque) {
-			if(!empty($nome) && !empty($descricao) && !empty($qtdeEstoque)) {
+		public function InsertPecasReposicao($nome, $descricao, $qtdeEstoque, $codPecaErp) {
+			if(!empty($nome) && !empty($descricao) && !empty($qtdeEstoque)  && !empty($codPecaErp)) {
 				try {
 					$st = $this->db->prepare("INSERT INTO PecasReposicao 
-												(Nome, Descricao, QtdeEstoque) 
+												(Nome, Descricao, QtdeEstoque,CodPecaERP ) 
 											VALUES 
-												(:nome, :descricao, :qtdeEstoque)");
-					$st->bindParam(':nome', $nome);
-					$st->bindParam(':descricao', $descricao);
-					$st->bindParam(':qtdeEstoque', $qtdeEstoque);
+												('{$nome}', '{$descricao}', '{$qtdeEstoque}', '{$codPecaErp}')");
+				
 					$st->execute();
 
 					$this->HasError = false;
@@ -91,18 +91,16 @@
 			}
 		}
 
-		public function UpdatePecasReposicao($Id, $nome, $descricao, $qtdeEstoque) {
-			if(!empty($Id) && !empty($nome) && !empty($descricao) && !empty($qtdeEstoque)) {
+		public function UpdatePecasReposicao($Id, $nome, $descricao, $qtdeEstoque, $codPecaErp) {
+			if(!empty($Id) && !empty($nome) && !empty($descricao) && !empty($qtdeEstoque) && !empty($codPecaErp)) {
 				try {
 					$st = $this->db->prepare("UPDATE PecasReposicao 
-											SET Nome = :nome, 
-												Descricao = :descricao,
-												QtdeEstoque = :qtdeEstoque
-											WHERE Id = :Id");
-					$st->bindParam(':Id', $Id);
-					$st->bindParam(':nome', $nome);
-					$st->bindParam(':descricao', $descricao);
-					$st->bindParam(':qtdeEstoque', $qtdeEstoque);
+											SET Nome = '{$nome}', 
+												Descricao = '{$descricao}',
+												QtdeEstoque = '{$qtdeEstoque}',
+												CodPecaERP = '{$codPecaErp}'
+											WHERE Id = '{$Id}'");
+				
 					$st->execute();
 
 

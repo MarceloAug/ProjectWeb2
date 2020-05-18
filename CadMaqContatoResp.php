@@ -29,7 +29,7 @@
 						if ($resp->HasError) {
 							$_SESSION["MensagemFeedBack"] = $resp->ErrorMsg; 
 						} else {
-							$_SESSION["MensagemFeedBack"] = 'Peça vinculada com sucesso!';
+							$_SESSION["MensagemFeedBack"] = 'Responsavel vinculado com sucesso!';
 						}
 						header('Location: MaquinasList.php');
 					} else {

@@ -43,6 +43,37 @@
 				return $this;
 			}
 		}
+		public function DeletarArquivo($Id) {
+			
+			if(!empty($Id)) {
+
+				try {
+					
+						$st = $this->db->prepare("delete from Arquivo 
+												  WHERE Id = '{$Id}'");
+
+				
+
+						$st->execute();
+						
+	
+						$this->HasError = false;
+						return $this;
+					
+					   
+				} catch (Exception $e) {
+				
+					$this->HasError = true;
+					$this->ErrorMsg = "Não foi possível Excluir o Arquivo.";
+					return $this;
+				}
+	
+			} else {
+				$this->HasError = true;
+				$this->ErrorMsg = "Há dependencias";
+				return $this;
+			}
+		}
 		
 
 	}

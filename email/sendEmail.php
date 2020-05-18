@@ -1,101 +1,41 @@
 <?php 
 	
-  include_once('../includes/connection.php');
-  include_once("../includes/tableCadMaq.php");
+  //include_once('../includes/connection.php');
+  //include_once("../includes/tableCadMaq.php");
 
-  $maquina = new CadMaq();
-  $maqList = $maquina->getCadMaqManutencao();
+    require_once 'PHPMailer-5.2.14/PHPMailerAutoload.php';
 
-if(!empty($maqList)){
+  //$maquina = new CadMaq();
+  //$maqList = $maquina->getCadMaqManutencao();
 
-    foreach($maqList->maq as $value){
+//if(!empty($maqList)){
 
-            
-            // emails para quem será enviado o formulário
-            $emailenviar = "marcelomab09@gmail.com";
-            $destino = $value['EnderecoEmailAviso'];
-            $assunto = "Manutenção de maquina ".  $value['EnderecoEmailAviso'];
-            $msg = "A maquina ".$value['Nome']." irá ter uma manutenção em ". $value['AvisoAntesDays'] . " dias ";
-       
+    //foreach($maqList->maq as $value){
 
+      $M = new PHPMailer();
 
-            
-            // É necessário indicar que o formato do e-mail é html
-            
-            $headers  = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-            $headers .= 'From: marcelomab09@gmail.com';
-            //$headers .= "Bcc: $EmailPadrao\r\n";
-            
-            $enviaremail = mail($destino, $assunto, $msg, $headers);
-            if($enviaremail){
-               echo "email enviado com sucesso";
-            }else{
-                echo "deu erro";
-            
-            }
-            // $mgm = "E-MAIL ENVIADO COM SUCESSO! <br> O link será enviado para o e-mail fornecido no formulário";
-            // echo " <meta http-equiv='refresh' content='10;URL=contato.php'>";
-            // } else {
-            // $mgm = "ERRO AO ENVIAR E-MAIL!";
-            // echo "";
-            // }
-                    
-    
-    }
-}
-			
-	
-?>
-=======
+      # $M->SMTPDebug = 2; # Somente para debug
+      $M->isSMTP(); # Informamos que é SMTP
+      $M->Host = 'smtp.gmail.com'; # Colocamos o host de envio de e-mail.
+      $M->SMTPAuth = true; # Informamos que terá autenticação de SMTP.
+      $M->Username = '4mweb2@gmail.com'; # Usuário
+      $M->Password = 'web212345'; # Senha
+      $M->Port = 465; # Porta de disparo.
+      $M->SMTPSecure = 'ssl'; # Caso tenha segurança.
 
-<?php 
-	
-	include_once('../includes/connection.php');
-	include_once("../includes/tableCadMaq.php");
-  
-	$maquina = new CadMaq();
-	$maqList = $maquina->getCadMaqManutencao();
-  
-  if(!empty($maqList)){
-  
-	  foreach($maqList->maq as $value){
-  
-			  
-			  // emails para quem será enviado o formulário
-			  $emailenviar = "marcelomab09@gmail.com";
-			  $destino = $value['EnderecoEmailAviso'];
-			  $assunto = "Manutenção de maquina ".  $value['EnderecoEmailAviso'];
-			  $msg = "A maquina ".$value['Nome']." irá ter uma manutenção em ". $value['AvisoAntesDays'] . " dias ";
-		 
-  
-  
-			  
-			  // É necessário indicar que o formato do e-mail é html
-			  
-			  $headers  = 'MIME-Version: 1.0' . "\r\n";
-			  $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-			  $headers .= 'From: marcelomab09@gmail.com';
-			  //$headers .= "Bcc: $EmailPadrao\r\n";
-			  
-			  $enviaremail = mail($destino, $assunto, $msg, $headers);
-			  if($enviaremail){
-				 echo "email enviado com sucesso";
-			  }else{
-				  echo "deu erro";
-			  
-			  }
-			  // $mgm = "E-MAIL ENVIADO COM SUCESSO! <br> O link será enviado para o e-mail fornecido no formulário";
-			  // echo " <meta http-equiv='refresh' content='10;URL=contato.php'>";
-			  // } else {
-			  // $mgm = "ERRO AO ENVIAR E-MAIL!";
-			  // echo "";
-			  // }
-					  
-	  
-	  }
-  }
-			  
-	  
-  ?>
->>>>>>> Marcelo-Branch
+      $M->From = '4mweb2@gmail.com'; # Remetente do disparo.
+      $M->FromName = 'Suporte Novus'; # Nome do remetente.
+      $M->addAddress('marcelomab09@gmail.com', 'Marcelo Bombril'); # Destinatário.
+      $M->isHTML(); # Informamos que o corpo tem o formato HTML.
+      $M->Subject = 'Manutencao de Maquina'; # Assunto da mensagem.
+      # Corpo da mensagem:
+      $M->Body = "<html><head></head><body><h1>Teste para manutenção de maquinas!!!</h1></body></html>";
+
+      # Enviamos:
+      if (!$M->send())
+        echo "Não foi possível enviar a mensagem. Erro: " . $M->ErrorInfo; 
+      else
+        echo 'Mensagem Enviada com Sucesso';
+
+  //}
+//}

@@ -27,7 +27,7 @@
 						if ($Id == 0) {
 							//Insert
 							$obj = new PecasReposicao();
-							$resp = $obj->InsertPecasReposicao($_POST['nome'],$_POST['descricao'],$_POST['estoque']);
+							$resp = $obj->InsertPecasReposicao($_POST['nome'],$_POST['descricao'],$_POST['estoque'],$_POST['codpecaerp']);
 
 							if ($resp->HasError) {
 								$_SESSION["MensagemFeedBack"] = $resp->ErrorMsg; 
@@ -38,7 +38,7 @@
 						} elseif ($Id <> 0 && $IsEdit) {
 							//Update
 							$obj = new PecasReposicao();
-							$resp = $obj->UpdatePecasReposicao($Id,$_POST['nome'],$_POST['descricao'],$_POST['estoque']);
+							$resp = $obj->UpdatePecasReposicao($Id,$_POST['nome'],$_POST['descricao'],$_POST['estoque'],$_POST['codpecaerp']);
 							if ($resp->HasError) {
 								$_SESSION["MensagemFeedBack"] = $resp->ErrorMsg; 
 							} else {
@@ -87,7 +87,7 @@
 				    <div class="col-sm-10">
 					    <input type="text" required
 					      	<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
-					      	class="form-control customInputForm" name='nome' id="input1" 
+					      	class="form-control customInputForm" name='nome' id="nome" 
 					      	value=<?php 
 								      	if ($Id <> 0) {
 								      		echo '"'.$resp->pecaBuscada["Nome"].'"'; 
@@ -104,7 +104,7 @@
 				    <div class="col-sm-10">
 						<input type="text" required
 							<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
-							class="form-control customInputForm" name='descricao' id="input2" 
+							class="form-control customInputForm" name='descricao' id="desc" 
 							value=<?php 
 										if ($Id <> 0) {
 											echo '"'.$resp->pecaBuscada["Descrição"].'"'; 
@@ -121,7 +121,7 @@
 				    <div class="col-sm-10">
 						<input type="number" required
 							<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
-							class="form-control customInputForm" name='estoque' id="input3" 
+							class="form-control customInputForm" name='estoque' id="estoque" 
 							value=<?php 
 										if ($Id <> 0) {
 											echo '"'.$resp->pecaBuscada["Quantidade em Estoque"].'"'; 
@@ -132,6 +132,24 @@
 						>
 				    </div>
 				  </div>
+
+				  <div class="form-group row">
+				    <label for="input2" class="col-2 col-form-label required">Código da Peça</label>
+				    <div class="col-sm-10">
+						<input type="number" required
+							<?php if ($Id <> 0 && !$IsEdit) {echo 'readonly';} ?> 
+							class="form-control customInputForm" name='codpecaerp' id="codpeca" 
+							value=<?php 
+										if ($Id <> 0) {
+											echo '"'.$resp->pecaBuscada["Código da Peça"].'"'; 
+										} else {
+											echo '""'; 
+										}
+									?>
+						>
+				    </div>
+				  </div>
+
 
 				  <br>
 				  <?php if (($Id <> 0 && $IsEdit) || $Id == 0) {
