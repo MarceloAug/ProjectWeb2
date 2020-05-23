@@ -115,7 +115,7 @@
 					</div>
 
 				  <br>
-				  <button type="submit" name="salvar" class="btn btn-primary" style="margin-bottom: 10px;">Realizar Manutenção</button>
+				  <button type="submit" name="salvar" class="btn btn-primary" style="margin-bottom: 10px;">Manutenção realizada</button>
 				  <a href="MaquinasList.php" class="btn btn-secondary" style="margin-bottom: 10px;">Voltar</a>
 				</form>
 				

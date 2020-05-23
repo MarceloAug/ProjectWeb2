@@ -231,9 +231,8 @@
 									
 			if(!empty($nome) && !empty($descricao) && !empty($carac) && !empty($patrim) && !empty($periodoManut) && !empty($avisoAntes)) {
 				try {
-
-					$select = $this->db->prepare("SELECT Id FROM ContatoResp WHERE Id = :ContatoNome ");
-					$select->bindParam(':ContatoNome', $ContatoNome);
+					
+					$select = $this->db->prepare("SELECT Id FROM ContatoResp WHERE Id = '{$ContatoNome}'");
 					$select->execute();
 
 					if ($select->rowCount()<>1) {

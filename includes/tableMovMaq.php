@@ -126,21 +126,44 @@
 
 		function filtraManutencaoPeriodo($datade,$dataate,$tipoMan,$responsavel){
 			
-			$sql = "SELECT MovMaq.CadMaqId,MovMaq.Descricao,MovMaq.HistMovId, MovMaq.DtMovto, MovMaq.DtManutencao
-			FROM MovMaq
-			INNER JOIN CadMaqContatoResp ON MovMaq.CadMaqId = CadMaqContatoResp.CadMaqId
-			 WHERE CAST(MovMaq.DtManutencao AS DATE) BETWEEN '{$datade}' and '{$dataate}'";
+			
+			$filtro = '';
+
+			if(!empty($datade) && !empty($dataate)){
+				if($filtro == ""){
+					$filtro ="WHERE CAST(MovMaq.DtManutencao AS DATE) BETWEEN '{$datade}' and '{$dataate}'";
+				}else{
+
+					$filtro =  $filtro ." AND CAST(MovMaq.DtManutencao AS DATE) BETWEEN '{$datade}' and '{$dataate}'";
+				}
+			}
 
 			if(!empty($tipoMan)){
+				
+				if($filtro == ""){
+					$filtro =  "WHERE MovMaq.TipoManutencaoId = '{$tipoMan}'";
+				}else{
 
-				$sql .= "AND MovMaq.TipoManutencaoId = '{$tipoMan}'";
+					$filtro =  $filtro . " AND MovMaq.TipoManutencaoId = '{$tipoMan}'";
+				}
+				
 			}
-
 
 			if(!empty($responsavel)){
+				if($filtro == ""){
+					$filtro =  "WHERE CadMaqContatoResp.ContatoRespId = '{$responsavel}'"; 
+				}else{
 
-				$sql .= "AND CadMaqContatoResp.ContatoRespId = '{$responsavel}'"; 
+					$filtro = $filtro . " AND CadMaqContatoResp.ContatoRespId = '{$responsavel}'"; 
+				}
 			}
+			
+		
+			$sql = "SELECT MovMaq.CadMaqId,MovMaq.Descricao,MovMaq.HistMovId, MovMaq.DtMovto, MovMaq.DtManutencao
+			FROM MovMaq
+			INNER JOIN CadMaqContatoResp ON MovMaq.CadMaqId = CadMaqContatoResp.CadMaqId " . $filtro;
+
+		
 		 
 			$st = $this->db->prepare($sql);
 		

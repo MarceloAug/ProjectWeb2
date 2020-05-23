@@ -31,7 +31,7 @@
 							//Insert
 							$obj = new CadMaq();
 							$resp = $obj->InsertCadMaq($_POST['nome'],$_POST['descricao'],$_POST['caracteristicas'],
-														$_POST['patrimonio'],$_POST['periodoManutencao'],$_POST['avisoAntes'],$_POST['contatoNome'],'');
+														$_POST['patrimonio'],$_POST['periodoManutencao'],$_POST['avisoAntes'],'',$_POST['contatoNome']);
 
 							if ($resp->HasError) {
 								$_SESSION["MensagemFeedBack"] = $resp->ErrorMsg; 

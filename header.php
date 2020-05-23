@@ -45,7 +45,7 @@
 				<a href="PecasList.php"><li><span class="icon oi oi-spreadsheet" aria-hidden="true"></span>Peças</li></a>
 				<a href="MaquinasList.php"><li><span class="icon oi oi-spreadsheet" aria-hidden="true"></span>Máquinas</li></a>
 				<a href="MovMaquinasList.php"><li><span class="icon oi oi-list" aria-hidden="true"></span>Log de Atividades</li></a>
-				<a href="ManutencaoList.php"><li><span class="icon oi oi-list" aria-hidden="true"></span>Manutenção</li></a>
+				<a href="ManutencaoList.php"><li><span class="icon oi oi-list" aria-hidden="true"></span>Consulta de Manutenção</li></a>
 			</ul>
 		</div>
 	</header>

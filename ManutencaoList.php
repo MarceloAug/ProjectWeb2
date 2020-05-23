@@ -5,7 +5,7 @@
 
 
 
-    if(!isset($_POST["datade"]) && !isset($_POST["dataate"])){
+    if(!isset($_POST["datade"]) || !isset($_POST["dataate"]) || !isset($_POST['tipoManutencaoId']) || !isset($_POST['nome'])){
 
         $manutencao = new MovMaq;
         $manList = $manutencao->filtraManutencao();
