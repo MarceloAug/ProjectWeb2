@@ -43,13 +43,22 @@
 		}
 
 		function getCadMaqEmDia() {
-			$st = $this->db->prepare("SELECT 
+			/* $st = $this->db->prepare("SELECT 
 										Id \"Id\", 
 										Nome \"Nome\", 
 										Descricao \"Descrição\",
 										Caracteristicas \"Características\",
 										Patrimonio \"Patrimônio\",
 										EnderecoEmailAviso \"Endereço de Email para enviar o aviso\"
+									FROM CadMaq
+									WHERE datediff(CURRENT_DATE(),(SELECT MAX(MovMaq.DtManutencao) FROM MovMaq WHERE MovMaq.CadMaqId = CadMaq.Id)) < (CadMaq.PeriodoManutencaoDays - CadMaq.AvisoAntesDays)"); */
+
+			$st = $this->db->prepare("SELECT 
+										Id , 
+										Nome , 
+										Descricao ,
+										Caracteristicas,
+										Patrimonio
 									FROM CadMaq
 									WHERE datediff(CURRENT_DATE(),(SELECT MAX(MovMaq.DtManutencao) FROM MovMaq WHERE MovMaq.CadMaqId = CadMaq.Id)) < (CadMaq.PeriodoManutencaoDays - CadMaq.AvisoAntesDays)");
 			if ($st->execute()) {
@@ -422,6 +431,29 @@
 				$this->ErrorMsg = "Há dados vinculados a esta peça!";
 				return $this;
 			}
+		}
+
+		public function getCadMaqContato() {
+		
+			$st = $this->db->prepare("SELECT CadMaqContatoResp.CadMaqId,CadMaqContatoResp.ContatoRespId,ContatoResp.Email,ContatoResp.Nome,MovMaq.DtManutencao,CadMaq.Nome AS NomeMaq
+											FROM  CadMaqContatoResp
+										INNER JOIN ContatoResp ON CadMaqContatoResp.ContatoRespId = ContatoResp.Id
+										INNER JOIN CadMaq ON CadMaqContatoResp.CadMaqId = CadMaq.Id
+										INNER JOIN MovMaq ON MovMaq.CadMaqId = CadMaq.Id
+									WHERE MovMaq.HistMovId = 'MANUTENCAO' AND datediff((SELECT MAX(MovMaq.DtManutencao) FROM MovMaq WHERE MovMaq.CadMaqId = CadMaq.Id),CURRENT_DATE()) > (CadMaq.PeriodoManutencaoDays - CadMaq.AvisoAntesDays)
+									AND datediff(CURRENT_DATE(),(SELECT MAX(MovMaq.DtManutencao) FROM MovMaq WHERE MovMaq.CadMaqId = CadMaq.Id)) < (CadMaq.PeriodoManutencaoDays)");
+			//$st->bindParam(1, $Id);
+			$st->execute();
+
+		
+			$this->HasError = false;
+
+			while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
+				$this->maq[] = $row;
+			}
+			return $this;
+		
+			
 		}
 
 	}

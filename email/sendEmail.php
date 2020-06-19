@@ -1,20 +1,20 @@
 <?php 
 	
-  //include_once('../includes/connection.php');
-  //include_once("../includes/tableCadMaq.php");
+  include_once('../includes/connection.php');
+  include_once("../includes/tableCadMaq.php");
 
     require_once 'PHPMailer-5.2.14/PHPMailerAutoload.php';
 
-  //$maquina = new CadMaq();
-  //$maqList = $maquina->getCadMaqManutencao();
+  $maquina = new CadMaq();
+  $maqList = $maquina->getCadMaqContato();
+  
+  if(!empty($maqList)){
 
-//if(!empty($maqList)){
-
-    //foreach($maqList->maq as $value){
-
+    foreach($maqList->maq as $value){
+    
       $M = new PHPMailer();
-
-      # $M->SMTPDebug = 2; # Somente para debug
+      
+      #$M->SMTPDebug = 3; # Somente para debug
       $M->isSMTP(); # Informamos que é SMTP
       $M->Host = 'smtp.gmail.com'; # Colocamos o host de envio de e-mail.
       $M->SMTPAuth = true; # Informamos que terá autenticação de SMTP.
@@ -25,11 +25,16 @@
 
       $M->From = '4mweb2@gmail.com'; # Remetente do disparo.
       $M->FromName = 'Suporte Novus'; # Nome do remetente.
-      $M->addAddress('marcelomab09@gmail.com', 'Marcelo Bombril'); # Destinatário.
+      $M->addAddress($value["Email"],$value["Nome"]); # Destinatário.
       $M->isHTML(); # Informamos que o corpo tem o formato HTML.
       $M->Subject = 'Manutencao de Maquina'; # Assunto da mensagem.
       # Corpo da mensagem:
-      $M->Body = "<html><head></head><body><h1>Teste para manutenção de maquinas!!!</h1></body></html>";
+      $M->Body = "<html>
+                    <head></head>
+                    <body>
+                      <h1> A maquina " . $value["NomeMaq"] . " vai estar em manutenção no dia " .$value["DtManutencao"] . "</h1>
+                    </body>
+                  </html>";
 
       # Enviamos:
       if (!$M->send())
@@ -37,5 +42,5 @@
       else
         echo 'Mensagem Enviada com Sucesso';
 
-  //}
-//}
+  }
+}

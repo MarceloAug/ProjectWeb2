@@ -172,11 +172,11 @@
 						>
 				    </div> -->
 					<!-- Botão que irá abrir o modal -->
-					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#meuModal">Agendamento de manutenção</button>	
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#meuModal">Agendamento da Manutenção</button>	
 
 				  </div> 
 				
-
+										
 					 <div class="form-group row">
 						<label for="input2" class="col-2 col-form-label required">Tempo, em dias, antes de mandar email de aviso</label>
 						<div class="col-sm-10">
@@ -193,7 +193,7 @@
 							>
 						</div>
 				  	</div>
-
+											
 			
 				
 				  <?php if ($Id == 0) { 
@@ -295,14 +295,80 @@
 			
 					<!-- Cabeçalho do modal -->
 					<div class="modal-header">
-						<h4 class="modal-title">Título do modal</h4>
+						<h4 class="modal-title"><b>Hoje é <?php echo date("d/m/Y")?></b>. Faça o seu agendamento de manutenção</h4>
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 			
 					<!-- Corpo do modal -->
 					<div class="modal-body">
-						<p>Conteúdo no corpo do modal.</p>
-						<p>Aqui você pode inserir todo o conteúdo necessário.</p>
+					<div class="container-fluid">
+						<div class="row">
+						
+						<div class="col-sm-9">
+						<div class="form-group row" name="Periodos">
+						<div class="col-sm-auto">
+						<b>A partir de</b> 
+						</div>
+						<input type="date" class="form-control customInputForm" name='DataInicial' id="DataInicial" 
+                        value="" ?>
+						</div>
+								<div class="form-row">
+								<laabel for="tipoPeriodoId"><b>Período</b></label>
+									<select name="tipoPeriodoId">
+									<option value="M">Mensal</option>
+									<option value="T">Trimestral</option>
+									<option value="S">Semestral</option>
+									<option value="A">Anual</option>
+									</select>
+									<label for="Quantidade">Qtd:</label>
+									<?php
+									?>
+  									<input type="number" id="quantity" name="QuantidadePeriodo" min="1" max="12">
+									
+								</div>
+								<div class = "form-row">
+									<laabel for="tipoSemanaId"><b>Recorrência da Semana</b></label>
+									<select    name="tipoSemanaId">
+									<option value="0">Semanalmente</option>
+									<option value="1">1ª Semana</option>
+									<option value="2">2ª Semana</option>
+									<option value="3">3ª Semana</option>
+									<option value="4">4ª Semana</option>
+									</select>
+								</div>
+								
+							
+				</br>
+						</div>
+							<div class="col-sm-auto" name="tipoDiaSemanaId">
+							<b>Toda a:</b></br>
+							
+								<input type="checkbox" name="servico[]" value="Seg"/> Segunda-Feira<br>
+								<input type="checkbox" name="servico[]" value="Ter"/> Terça-Feira<br>
+								<input type="checkbox" name="servico[]" value="Qua"/> Quarta-Feira<br>
+								<input type="checkbox" name="servico[]" value="Qui"/> Quinta-Feira<br>
+								<input type="checkbox" name="servico[]" value="Sex"/> Sexta-Feira<br>
+								<input type="checkbox" name="servico[]" value="Sex"/> Sábado<br>
+								<input type="checkbox" name="servico[]" value="Sex"/> Domingo<br>
+										<br>
+							</div>
+							
+						
+							<br>
+						<div class="col 2-md-auto">
+						<b>Termina em:</b><br>
+						<input type="radio" name="termino[]" value="Nunca"/> Nunca<br>
+						<input type="radio" name="termino[]" value="Em"/> Em
+						<input type="date" name='DataFinal' id="DataFinal" value="" ?>
+						<br>
+						<input type="radio" name="termino[]" value="Seg"/> Após
+						<input type="number" name='Ocorrencias' id="NumeroOcorrencias" 
+                        value="" ? min="1" max="100"> Ocorrências.
+							
+							</div>
+						</div>
+						</div>
+					</div>
 					</div>
 			
 					<!-- Rodapé do modal-->

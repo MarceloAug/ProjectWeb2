@@ -58,13 +58,10 @@
 					//"
 				//);
 
-					$st = $db->prepare(
-				"
-					SELECT 
-						COUNT(CadMaq.Id) \"Cont\"
-					FROM
-						CadMaq"
-				);
+					$st = $db->prepare("SELECT 
+											COUNT(CadMaq.Id) \"Cont\"
+									FROM CadMaq
+									WHERE CURRENT_DATE() > (SELECT MAX(MovMaq.DtManutencao) FROM MovMaq WHERE MovMaq.CadMaqId = CadMaq.Id)");
 				$st->execute();
 					echo $st->fetch()["0"];
 			}
@@ -166,7 +163,7 @@
 							generateTableList($resp, $cabecalho, $url);
 						}
 						if ($_GET['view'] == "Em Dia") {
-							$resp = $object->getCadMaq()->maq;
+							$resp = $object->getCadMaqEmDia()->maq;
 							generateTableList($resp, $cabecalho, $url);
 						}
 
