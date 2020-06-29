@@ -157,23 +157,22 @@
 				  </div>
 
 				  <div class="form-group row">
-				   <!--  <label for="input2" class="col-2 col-form-label required">Período de Manutenção (em dias)</label>
+				    <label for="input2" class="col-2 col-form-label required">Período de Manutenção (em dias)</label>
 				    <div class="col-sm-10">
 						<input type="number" required
 							<?php /* if ($Id <> 0 && !$IsEdit) {echo 'readonly';}  */?> 
 							class="form-control customInputForm" name='periodoManutencao' id="input5" 
 							value=<?php 
-										/* if ($Id <> 0) {
+										if ($Id <> 0) {
 											echo '"'.$resp->MaqDados["Período de Manutenção (em dias)"].'"'; 
 										} else {
 											echo '""'; 
-										} */
+										}
 									?>s
 						>
-				    </div> -->
-					<!-- Botão que irá abrir o modal -->
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#meuModal">Agendamento da Manutenção</button>	
-
+				    </div>
+					
+				
 				  </div> 
 				
 										
@@ -221,7 +220,9 @@
 					<?php
 					  }
 				  ?>
-				  
+				  	<?php if (!empty($_GET['Id'])||!isset($_GET['Id'])) { ?>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#meuModal">Agendamento da Manutenção</button>	
+					<?php } ?> 
 
 				  <?php 
 				  	if ($Id != 0) {
@@ -306,20 +307,21 @@
 						
 						<div class="col-sm-9">
 						<div class="form-group row" name="Periodos">
-						<div class="col-sm-auto">
-						<b>A partir de</b> 
+							<div class="col-sm-auto">
+								<b>A partir de</b> 
 						</div>
 						<input type="date" class="form-control customInputForm" name='DataInicial' id="DataInicial" 
                         value="" ?>
 						</div>
-								<div class="form-row">
-								<laabel for="tipoPeriodoId"><b>Período</b></label>
-									<select name="tipoPeriodoId">
-									<option value="M">Mensal</option>
-									<option value="T">Trimestral</option>
-									<option value="S">Semestral</option>
-									<option value="A">Anual</option>
+								<div class="form-group">
+								<label for="tipoPeriodoId"><b>Período</b></label>
+									<select name="tipoPeriodoId" class="form-control">
+										<option value="M">Mensal</option>
+										<option value="T">Trimestral</option>
+										<option value="S">Semestral</option>
+										<option value="A">Anual</option>
 									</select>
+
 									<label for="Quantidade">Qtd:</label>
 									<?php
 									?>
