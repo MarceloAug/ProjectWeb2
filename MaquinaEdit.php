@@ -221,7 +221,7 @@
 					  }
 				  ?>
 				  	<?php if (!empty($_GET['Id'])||!isset($_GET['Id'])) { ?>
-						<a href="Agendamento.php" class="btn btn-secondary" style="margin-bottom: 10px;">Agendamento de manutenção</a>	
+						<a href=<?php echo '"Agendamento.php?Id='.$_GET['Id'].'"'; ?>class="btn btn-secondary" style="margin-bottom: 10px;">Agendamento de manutenção</a>	
 					<?php } ?> 
 
 				  <?php 

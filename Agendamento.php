@@ -1,8 +1,21 @@
 <?php 
-if(isset($_POST['DataInicial'])){
-    
+
+
+
+include_once("includes/tableMovMaq.php");
+if (isset($_GET['Id'])) {
+    $id = $_GET['Id'];
+}
+
+
+if(isset($_POST['DataInicial']) && isset($_POST['periodo']) && isset( $_POST['qtd']) && isset($_POST['recorrencia']) && isset($_POST['diaSemana'])){
+
+    $maquina = new MovMaq();
+    $maquina->Agendamento($id,$_POST['DataInicial'],$_POST['periodo'],$_POST['qtd'],$_POST['recorrencia'],$_POST['diaSemana']);
+    header('Location: MaquinasList.php');    
 
 }
+
 ?>
 <?php 
 	require "header.php";
@@ -11,50 +24,51 @@ if(isset($_POST['DataInicial'])){
      <div class="customDiv">
         <h4 class="modal-title"><b>Hoje é <?php echo date("d/m/Y")?></b>. Faça o seu agendamento de manutenção</h4>
                        
-        <form action= "./Agendamento.php" method="POST">	
+        <form <?php echo '"Agendamento.php?Id='.$id.'"'; ?> method="POST">	
         
             <div class="form-group" >
                 <div class="col-sm-auto">
                 <label for="tipoPeriodoId"><b>Apartir de</b></label>
-                    <input type="date" class="form-control customInputForm" name='DataInicial' id="DataInicial" value="" ?>
+                    <input type="date" class="form-control customInputForm" name='DataInicial' id="DataInicial" value=""  required?>
             </div>
                
         
             <div class="form-group">
                 <label for="tipoPeriodoId"><b>Período</b></label>
-                <select name="tipoPeriodoId" class="form-control">
-                    <option value="M">Mensal</option>
-                    <option value="T">Trimestral</option>
-                    <option value="S">Semestral</option>
-                    <option value="A">Anual</option>
+                <select name="periodo" class="form-control" required>
+                    <option value="">EScolha o periodo</option>
+                    <option value="1">Mensal</option>
+                    <option value="3">Trimestral</option>
+                    <option value="6">Semestral</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="Quantidade">Qtd:</label>
-                <input type="number" id="quantity" name="QuantidadePeriodo" min="1" max="12">
+                <input type="number" id="quantity" name="qtd" min="1" max="12" required>
             </div>
 
             <div class="form-group">
                 <label for="tipoSemanaId"><b>Recorrência da Semana</b></label>
-                <select    name="recorrencia">
-                    <option value="0">Semanalmente</option>
-                    <option value="1">1ª Semana</option>
-                    <option value="2">2ª Semana</option>
-                    <option value="3">3ª Semana</option>
-                    <option value="4">4ª Semana</option>
+                <select    name="recorrencia" required >
+                    <option value="">Escolha a semana </option>
+                    <option value="7">1ª Semana</option>
+                    <option value="14">2ª Semana</option>
+                    <option value="21">3ª Semana</option>
+                    <option value="28">4ª Semana</option>
                 </select>
             </div>
             
             <div class = "form-row">
                 <label for="tipoSemanaId"><b>Toda a:</b></label>
-                <select    name="diaSemana">
-                    <option value="seg">Segunda-feira</option>
-                    <option value="ter">Terça-feira</option>
-                    <option value="Qua">Quarta-feira</option>
-                    <option value="Qui">Quinta-feira</option>
-                    <option value="Sex">Sexta-feira</option>
-                    <option value="Sab">Sexta-feira</option>
-                    <option value="Dom">Sexta-feira</option>
+                <select    name="diaSemana" required >
+                    <option value="">Selecione o dia da semana</option>
+                    <option value="monday">Segunda-feira</option>
+                    <option value="tuesday">Terça-feira</option>
+                    <option value="wednesday">Quarta-feira</option>
+                    <option value="thursday">Quinta-feira</option>
+                    <option value="friday">Sexta-feira</option>
+                    <option value="saturday">Sabado</option>
+                    <option value="sunday">Domingo</option>
                 </select>
                 
             </div>

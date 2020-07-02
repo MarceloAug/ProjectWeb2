@@ -123,6 +123,58 @@
 			}
 		}
 
+		function Agendamento($id,$data,$periodo,$qtd,$recorrencia,$dia){
+			
+			for($i=0;$i < $qtd; $i++){
+				if(!isset($date)){
+					$date =  date("Y-m-d",strtotime($data ."+".$periodo." month"));
+				}else{
+
+					$date =  date("Y-m-d",strtotime($date ."+".$periodo." month"));
+				}
+				
+				$dateAux = date("Y-m-d",strtotime($date ."+".$recorrencia." days"));
+			
+				switch ($dia) {
+					case 'monday':
+						$dtManutencao = date('Y-m-d', strtotime($dateAux.' monday this week'));
+						break;
+
+					case "tuesday":
+						$dtManutencao = date('Y-m-d', strtotime($dateAux.' tuesday this week'));
+						break;
+
+					case "wednesday":
+						$dtManutencao = date('Y-m-d', strtotime($dateAux.' wednesday this week'));
+						break;
+
+					case "thursday":
+						$dtManutencao = date('Y-m-d', strtotime($dateAux.' thursday this week'));
+						break;
+
+					case "friday":
+						$dtManutencao = date('Y-m-d', strtotime($dateAux.' friday this week'));
+						break;
+
+					case "saturday":
+						$dtManutencao = date('Y-m-d', strtotime($dateAux.' saturday this week'));
+						break;
+
+					case "sunday":
+						$dtManutencao = date('Y-m-d', strtotime($dateAux.' sunday this week'));
+						break;
+				}
+						$dateformat = date_create($dtManutencao);
+						$dtManutencao = date_format($dateformat, 'Y-m-d H:i:s');
+						$st = $this->db->prepare("INSERT INTO MovMaq (CadMaqId,HistMovId,Descricao,DtMovto,TipoManutencaoId,dtManutencao) 
+						VALUES ('{$id}','MANUTENCAO','Manutencao de agendamento da maquina {$id}',CURRENT_TIMESTAMP(),'P','{$dtManutencao}')");
+
+			
+						$st->execute();
+						
+			}
+		}
+
 
 		function filtraManutencaoPeriodo($datade,$dataate,$tipoMan,$responsavel){
 			
