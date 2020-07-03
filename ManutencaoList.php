@@ -29,11 +29,11 @@
                 <form action=<?php echo 'ManutencaoList.php'?> method="POST">
 
                 <h3>Pesquisa por Manutenção</h3>
+                
                 <div class="form-group row">
                     <label for="input1" class="col-2 col-form-label"> Data Inicial</label>
                     <div class="col-sm-10">
-                        <input type="date" class="form-control customInputForm" name='datade' id="input1" 
-                        value="" ?>
+                        <input type="date" class="form-control customInputForm" name='datade' id="input1" value="" ?>
                     </div>
                 </div>
 
